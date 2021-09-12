@@ -41,8 +41,10 @@ def welcome():
 def directories():
     if OS == "linux":
         home = str(expanduser("~"))
-        neovim_dir = home + "/.config/nvim"
-        backup_dir = home + "/.config/nvim-backup"
+        #neovim_dir = home + "/.config/nvim"
+        #backup_dir = home + "/.config/nvim-backup"
+        neovim_dir = home + "/This/nvim"
+        backup_dir = home + "/This/nvim-backup"
 
     elif OS == "windows":
         print("windows haha")
@@ -69,6 +71,7 @@ def backup():
 
     else:
         print("\n    -> Current Neovim directory will be replaced with new config.")
+        os.system("rm -rf ~/This/nvim")
 
 def packer_install():
     while True:
@@ -92,20 +95,34 @@ def packer_install():
         print("\n    -> Skipping packer.nvim install...")
 
     else:
-        print("\n    -> Intalling packer.nvim...")
 
         if OS == "linux":
-            print("a")
-            cmd = "git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/a2/packer.nvim"
+            #if os.path.isdir('./.local/share/nvim/site/pack/packer/start/packer.nvim') is True:
+            if os.path.isdir('./This/packer.nvim') is True:
+                print("\n  -> Packer is already installed. Skipping this step...")
+                cmd = ""
+
+            else:
+                print("\n    -> Intalling packer.nvim...")
+                #cmd = "git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+                cmd = "git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/This/packer.nvim"
 
         elif OS == "windows":
-            print("b")
             cmd = "git clone https://github.com/wbthomason/packer.nvim \"$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim\""
 
-        else:
-            print("User OS is", OS)
-
         os.system(cmd)
+
+def install():
+    if OS == "linux":
+        print("\n  -> Installing new neovim configuration...\n")
+        #cmd = "git clone git@github.com:sxrgiocs/KoiNv.git ~/.config/nvim --depth 10"
+        cmd = "git clone git@github.com:sxrgiocs/KoiNv.git ~/This/nvim --depth 10"
+
+    elif OS == "windows":
+        print("Windows command not ready yet")
+
+
+    os.system(cmd)
 
 def main():
     welcome()
@@ -121,19 +138,36 @@ def main():
                 print("\n-----------------------------------------------------------------------------")
                 print("-> Please make sure you have Git and Neovim already installed in your machine")
                 print("-----------------------------------------------------------------------------")
-                backup()
+
+                if os.path.isdir("./This/nvim") is True:
+                    backup()
+
+                else:
+                    pass
+
                 packer_install()
+                install()
+
+                print("\n-----------------------------------------------------------------------------")
+                print("Neovim configuration installed. To install all plugins type \"nvim +PackerSync\'")
+                print("\n   -> To install TreeSitter parsers (highly recommended), open Neovim in command mode and type \":TSInstall <languages>\". Visit https://github.com/nvim-treesitter/nvim-treesitter#supported-languages to find the supported languages.")
+                print("\n   -> To install LSP servers, open Neovim in command mode and type \":LspInstall <language>\". Visit https://github.com/kabouzeid/nvim-lspinstall to find the supported languages.")
+                print("-----------------------------------------------------------------------------")
 
             else:
                 if OS == "linux":
-                    cmd = "rm -rf ~/.local/share/nvim/* ~/.config/nvim/*"
+                    #cmd = "rm -rf ~/.local/share/nvim/* ~/.config/nvim/*"
+                    cmd = "rm -rf ~/This/nvim/*"
+                    print("\n-----------------------------------------------------------------------------")
+                    print("Neovim configuration uninstalled")
+                    print("-----------------------------------------------------------------------------")
 
                 else:
                     print("Windows command not ready yet")
 
                 os.system(cmd)
-
             break
+
 
 if __name__ == '__main__':
     try:
