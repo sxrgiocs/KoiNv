@@ -41,10 +41,8 @@ def welcome():
 def directories():
     if OS == "linux":
         home = str(expanduser("~"))
-        #neovim_dir = home + "/.config/nvim"
-        #backup_dir = home + "/.config/nvim-backup"
-        neovim_dir = home + "/This/nvim"
-        backup_dir = home + "/This/nvim-backup"
+        neovim_dir = home + "/.config/nvim"
+        backup_dir = home + "/.config/nvim-backup"
 
     elif OS == "windows":
         print("windows haha")
@@ -54,24 +52,34 @@ def directories():
 
 def backup():
     old, backup = directories()
+    
+    if os.path.isdir(old) is True:
+        while True:
+            user_input = str(input("\nDo you wish to backup your current Neovim configuration? (y/n) "))
+            user_input = user_input.lower()
 
-    while True:
-        user_input = str(input("\nDo you wish to backup your current Neovim configuration? (y/n) "))
-        user_input = user_input.lower()
+            if user_input not in ("y", "n"):
+                print("\n    -> Invalid input. Please type \"y\" for yes and \"n\" for no.")
 
-        if user_input not in ("y", "n"):
-            print("\n    -> Invalid input. Please type \"y\" for yes and \"n\" for no.")
+            else:
+                break
+
+        if user_input == "y":
+            print("\n    -> Creating a Neovim backup in \"nvim-backup\"...")
+
+            if os.path.isdir(backup) is True:
+                print("\n    -> There is an existing nvim-backup directory already. Please delete it. move it or rename it and then run the script again.")
+                exit()
+
+            else:
+                os.rename(old, backup)
 
         else:
-            break
-
-    if user_input == "y":
-        print("\n    -> Creating a Neovim backup in \"nvim-backup\"...")
-        os.rename(old, backup)
+            print("\n    -> Current Neovim directory will be replaced with new config.")
+            os.system("rm -rf {}".format(old))
 
     else:
-        print("\n    -> Current Neovim directory will be replaced with new config.")
-        os.system("rm -rf ~/This/nvim")
+        pass
 
 def packer_install():
     while True:
@@ -97,30 +105,27 @@ def packer_install():
     else:
 
         if OS == "linux":
-            #if os.path.isdir('./.local/share/nvim/site/pack/packer/start/packer.nvim') is True:
-            if os.path.isdir('./This/packer.nvim') is True:
+            if os.path.isdir('./.local/share/nvim/site/pack/packer/start/packer.nvim') is True:
                 print("\n  -> Packer is already installed. Skipping this step...")
                 cmd = ""
 
             else:
-                print("\n    -> Intalling packer.nvim...")
-                #cmd = "git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim"
-                cmd = "git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/This/packer.nvim"
+                print("\n    -> Intalling packer.nvim...\n")
+                cmd = "git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim"
 
         elif OS == "windows":
+            print("\n    -> Intalling packer.nvim...\n")
             cmd = "git clone https://github.com/wbthomason/packer.nvim \"$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim\""
 
         os.system(cmd)
 
 def install():
     if OS == "linux":
-        print("\n  -> Installing new neovim configuration...\n")
-        #cmd = "git clone git@github.com:sxrgiocs/KoiNv.git ~/.config/nvim --depth 10"
-        cmd = "git clone git@github.com:sxrgiocs/KoiNv.git ~/This/nvim --depth 10"
+        print("\n   -> Installing new Neovim configuration...\n")
+        cmd = "git clone git@github.com:sxrgiocs/KoiNv.git ~/.config/nvim --depth 10"
 
     elif OS == "windows":
-        print("Windows command not ready yet")
-
+        print("\n   -> Installing new Neovim configuration...\n")
 
     os.system(cmd)
 
@@ -139,31 +144,27 @@ def main():
                 print("-> Please make sure you have Git and Neovim already installed in your machine")
                 print("-----------------------------------------------------------------------------")
 
-                if os.path.isdir("./This/nvim") is True:
-                    backup()
-
-                else:
-                    pass
-
+                backup()
                 packer_install()
                 install()
 
                 print("\n-----------------------------------------------------------------------------")
-                print("Neovim configuration installed. To install all plugins type \"nvim +PackerSync\'")
+                print("Neovim configuration installed. To install all plugins type \"nvim +PackerSync\"")
                 print("\n   -> To install TreeSitter parsers (highly recommended), open Neovim in command mode and type \":TSInstall <languages>\". Visit https://github.com/nvim-treesitter/nvim-treesitter#supported-languages to find the supported languages.")
                 print("\n   -> To install LSP servers, open Neovim in command mode and type \":LspInstall <language>\". Visit https://github.com/kabouzeid/nvim-lspinstall to find the supported languages.")
                 print("-----------------------------------------------------------------------------")
 
             else:
                 if OS == "linux":
-                    #cmd = "rm -rf ~/.local/share/nvim/* ~/.config/nvim/*"
-                    cmd = "rm -rf ~/This/nvim/*"
+                    cmd = "rm -rf ~/.local/share/nvim/* ~/.config/nvim/*"
                     print("\n-----------------------------------------------------------------------------")
                     print("Neovim configuration uninstalled")
                     print("-----------------------------------------------------------------------------")
 
                 else:
-                    print("Windows command not ready yet")
+                    print("\n-----------------------------------------------------------------------------")
+                    print("Neovim configuration uninstalled")
+                    print("-----------------------------------------------------------------------------")
 
                 os.system(cmd)
             break
