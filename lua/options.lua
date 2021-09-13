@@ -83,4 +83,3 @@ set.conceallevel = 1
 let.vimtex_view_method = "zathura"
 
 set.showtabline = 2
-

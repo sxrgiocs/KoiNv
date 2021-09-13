@@ -3,13 +3,11 @@ local packer
 
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
-
 if present then
     packer = require "packer"
 else
     return false
 end
-
 
 local use = packer.use
 
@@ -18,6 +16,7 @@ return packer.startup(
 
         use "wbthomason/packer.nvim"
 
+        -- Colors
         use {
             "norcalli/nvim-colorizer.lua",
             config = function()
@@ -25,10 +24,18 @@ return packer.startup(
             end
         }
 
+        -- Aesthetic plugins (bufferline, statusline...)
         use {
             "akinsho/nvim-bufferline.lua",
             config = function()
                 require "plugins.configs.bufferline"
+            end
+        }
+
+        use {
+            "glepnir/galaxyline.nvim",
+            config = function()
+                require "plugins.configs.statusline"
             end
         }
 
@@ -40,24 +47,6 @@ return packer.startup(
         }
 
         use {
-            "kyazdani42/nvim-tree.lua",
-            cmd = "NvimTreeToggle",
-            config = function()
-                require "plugins.configs.nvimtree"
-            end
-        }
-
-        use "francoiscabrol/ranger.vim"
-        use "rbgrouleff/bclose.vim"
-
-        use {
-            "glepnir/galaxyline.nvim",
-            config = function()
-                require "plugins.configs.statusline"
-            end
-        }
-
-        use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
             config = function()
@@ -65,6 +54,34 @@ return packer.startup(
             end
         }
 
+        -- File exploring
+        use {
+            'nvim-telescope/telescope.nvim',
+            requires = {
+                {'nvim-lua/plenary.nvim'},
+                {"nvim-telescope/telescope-fzy-native.nvim"}
+            },
+            config = function()
+                require "plugins.configs.telescope"
+            end,
+        }
+
+        use {
+            "kyazdani42/nvim-tree.lua",
+            cmd = "NvimTreeToggle",
+            config = function()
+                require "plugins.configs.nvimtree"
+            end
+        }
+
+        use {
+            "francoiscabrol/ranger.vim",
+            requires = {
+                "rbgrouleff/bclose.vim"
+            }
+        }
+
+        --LSP
         use {
             "kabouzeid/nvim-lspinstall",
             event = "BufRead",
@@ -86,16 +103,75 @@ return packer.startup(
         }
 
         use {
-            "hrsh7th/nvim-compe",
-            config = function()
-                require "plugins.configs.compe"
-            end
-        }
-
-        use {
             'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
         }
 
+        -- Completion and snippets
+        use {
+            "rafamadriz/friendly-snippets",
+            event = "InsertEnter",
+        }
+
+        use {
+            "hrsh7th/nvim-cmp",
+            after = "friendly-snippets",
+            config = function()
+                require "plugins.configs.cmp"
+            end,
+        }
+
+        use {
+            "L3MON4D3/LuaSnip",
+            wants = "friendly-snippets",
+            after = "nvim-cmp",
+            config = function()
+                require("plugins.configs.luasnip")
+            end,
+        }
+
+        use {
+            "saadparwaiz1/cmp_luasnip",
+            after = "LuaSnip",
+        }
+
+        use {
+            "hrsh7th/cmp-nvim-lua",
+            after = "cmp_luasnip",
+        }
+
+        use {
+            "hrsh7th/cmp-nvim-lsp",
+            after = "cmp-nvim-lua",
+        }
+
+        use {
+            "hrsh7th/cmp-buffer",
+            after = "cmp-nvim-lsp",
+        }
+
+        -- Git plugins
+        use {
+            'lewis6991/gitsigns.nvim',
+            requires = {
+            'nvim-lua/plenary.nvim'
+            },
+            config = function()
+                require('gitsigns').setup()
+            end,
+        }
+
+        -- LaTeX
+        use {
+            "lervag/vimtex",
+            ft = {"tex"}
+        }
+
+        use {
+            "xuhdev/vim-latex-live-preview",
+            ft = {"tex"}
+        }
+
+        -- Misc
         use {
             "windwp/nvim-autopairs",
             config = function()
@@ -112,16 +188,6 @@ return packer.startup(
         }
 
         use {
-            'lewis6991/gitsigns.nvim',
-            requires = {
-            'nvim-lua/plenary.nvim'
-            },
-            config = function()
-                require('gitsigns').setup()
-            end,
-        }
-
-        use {
             "glepnir/dashboard-nvim",
             cmd = {
                 "Dashboard",
@@ -134,26 +200,7 @@ return packer.startup(
                 require "plugins.configs.dashboard"
             end,
         }
-
-        use {
-            "lervag/vimtex",
-            ft = {"tex"}
-        }
-
-        use {
-            "xuhdev/vim-latex-live-preview",
-            ft = {"tex"}
-        }
-
-        use {
-            'nvim-telescope/telescope.nvim',
-            requires = {
-                {'nvim-lua/plenary.nvim'},
-                {"nvim-telescope/telescope-fzy-native.nvim"}
-            },
-            config = function()
-                require "plugins.configs.telescope"
-            end,
-        }
     end
 )
+
+
