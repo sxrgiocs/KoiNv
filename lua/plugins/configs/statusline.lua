@@ -21,28 +21,25 @@ gls.left[1] = {
 }
 
 gls.left[2] = {
-  ViMode = {
-    provider = function()
-      local alias = {
-          n      = " NORMAL ",
-          c      = " COMMAND ",
-          i      = " INSERT ",
-          V      = " VISUAL ",
-          [""] = " VISUAL ",
-          v      = " VISUAL ",
-          R      = " REPLACE ",
-          t      = " TERMINAL ",
-      }
-      local mode_color = {n = colors.blue, i = colors.green, v=colors.pink,
-                          [""] = colors.pink, V=colors.pink, c = colors.gray,
-                          t = colors.orange, R = colors.red}
+    ViMode = {
+        provider = function()
+        local mode_color = {
+                            n = colors.blue, i = colors.green2, v=colors.pink,
+                            [''] = colors.pink, V=colors.pink,
+                            c = colors.black2, no = colors.blue, s = colors.orange,
+                            S=colors.orange, [''] = colors.orange,
+                            ic = colors.yellow, R = colors.red, Rv = colors.red,
+                            cv = colors.red, ce=colors.red, r = colors.cyan,
+                            rm = colors.cyan, ['r?'] = colors.cyan,
+                            ['!']  = colors.red, t = colors.black3
+                        }
 
-      local vim_mode = vim.fn.mode()
-      vim.api.nvim_command("hi GalaxyViMode guifg="..mode_color[vim_mode])
-      return alias[vim_mode]
+        vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
+            return ' '
     end,
-    highlight = {colors.black, colors.black, "bold"},
-  },
+
+    highlight = {colors.red, colors.black,'bold'},
+    },
 }
 
 gls.left[3] = {
@@ -104,7 +101,7 @@ gls.left[6] = {
 gls.left[7] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
-        icon = "  ",
+        icon = "  ",
         highlight = {colors.orange, colors.black}
     }
 }

@@ -59,12 +59,6 @@ set.spelllang = "en_us"
 let.languagetool_lang = "en-US"
 let.languagetool_jar = "/usr/share/java/languagetool/languagetool-commandline.jar" -- if languagetool is installed from the AUR is always this path
 
--- UltiSnips
-let.UltiSnipsExpandTrigger = "<nop>"
-let.UltiSnipsJumpForwardTrigger = "<c-j>"
-let.UltiSnipsJumpBackwardTrigger = "<c-k>"
-let.UltiSnipsRemoveSelectModeMappings = 0
-
 -- LaTeX PDF previews
 let.livepreview_engine = "pdflatex"
 let.livepreview_previewer = "zathura"

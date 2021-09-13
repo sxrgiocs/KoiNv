@@ -37,7 +37,6 @@ def welcome():
 
     return OS
 
-
 def directories():
     if OS == "linux":
         home = str(expanduser("~"))
@@ -168,7 +167,6 @@ def main():
 
                 os.system(cmd)
             break
-
 
 if __name__ == '__main__':
     try:
