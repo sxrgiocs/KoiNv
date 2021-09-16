@@ -1,7 +1,8 @@
 local present, luasnip = pcall(require, "luasnip")
-    if not present then
-        return
-    end
+
+if not present then
+    return
+end
 
 luasnip.config.set_config {
     history = true,
@@ -9,3 +10,5 @@ luasnip.config.set_config {
 }
 
 require("luasnip/loaders/from_vscode").load()
+
+-- For my future self, you complete the snippet using Tab :D

@@ -33,10 +33,10 @@ map("n", "<leader>r", ":Ranger<CR>", {})
 map("n", "<C-z>", "<Nop>", {})
 
 -- Resize splits
-map("", "<leader>l", ":vertical resize +5<CR>", {})
-map("", "<leader>h", ":vertical resize -5<CR>", {})
-map("", "<leader>j", ":res -5<CR>", {})
-map("", "<leader>k", ":res +5<CR>", {})
+map("", "<leader>=", ":vertical resize +5<CR>", {})
+map("", "<leader>-", ":vertical resize -5<CR>", {})
+map("", "<leader>+", ":res -5<CR>", {})
+map("", "<leader>_", ":res +5<CR>", {})
 
 -- LaTeX preview
 map("", "<leader>p", ":LLPStartPreview<CR>", {noremap=true})
@@ -44,12 +44,13 @@ map("", "<leader>p", ":LLPStartPreview<CR>", {noremap=true})
 -- Numbers
 map("n", "<leader>n", ":set relativenumber!<CR>", {})
 
--- Toggle diagnostics
-
-map("n", "<leader>d", ":ToggleDiag<CR>", {})
-
 -- Telescope
 map("n", "<leader>fb", ":Telescope buffers<CR>", {})
 map("n", "<leader>ff", ":Telescope find_files hidden=true<CR>")
 map("n", "<leader>fgc", ":Telescope git_commits<CR>", {})
 map("n", "<leader>fgs", ":Telescope git_status<CR>", {})
+map("n", "<leader>fo", ":Telescope oldfiles<CR>", {})
+
+--Dashboard
+map("n", "<leader>fn", ":DashboardNewFile", {})
+map("n", "<leader>d", ":Dashboard<CR>", {})

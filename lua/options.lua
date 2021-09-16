@@ -12,6 +12,8 @@ set.cursorline = true
 
 let.mapleader = " "
 
+set.showtabline = 2
+
 -- Indenting
 set.expandtab = true
 set.shiftwidth = 4      -- number of spaces which compose the 'tab' action
@@ -59,6 +61,12 @@ set.spelllang = "en_us"
 let.languagetool_lang = "en-US"
 let.languagetool_jar = "/usr/share/java/languagetool/languagetool-commandline.jar" -- if languagetool is installed from the AUR is always this path
 
+-- Dashboard
+let.indentLine_fileTypeExclude = "dashboard"
+
+vim.api.nvim_exec([[
+    autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
+    ]], false)
 -- LaTeX PDF previews
 let.livepreview_engine = "pdflatex"
 let.livepreview_previewer = "zathura"
@@ -75,5 +83,3 @@ vim.api.nvim_exec([[
 set.conceallevel = 1
 --let.tex_conceal = "abdmg"
 let.vimtex_view_method = "zathura"
-
-set.showtabline = 2

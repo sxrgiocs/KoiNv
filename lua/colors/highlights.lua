@@ -155,4 +155,3 @@ hi("DashboardFooter",       colors.black2, colors.background, nil)
 
 -- Indent Blankline Plugin
 hi("IndentBlanklineChar", colors.black, colors.background, nil)
-

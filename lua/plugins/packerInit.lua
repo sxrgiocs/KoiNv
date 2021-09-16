@@ -25,25 +25,23 @@ if not present then
    if present then
       print "Packer cloned successfully."
    else
-      error("Couldn't clone packer !\nPacker path: " .. packer_path)
+      error("Couldn't clone packer !\nPacker path: " .. packer_path .. "\n" .. packer)
    end
 end
 
 packer.init {
-    --compile_path = "",
-    display = {
-        open_fn = function()
-            return require("packer.util").float { border = "single" }
-        end,
-        prompt_border = "single",
-    },
-    
-    git = {
-        clone_timeout = 600, -- Timeout, in seconds, for git clones
-    },
-    auto_clean = true,
-    compile_on_sync = true,
-    -- auto_reload_compiled = true
+   display = {
+      open_fn = function()
+         return require("packer.util").float { border = "single" }
+      end,
+      prompt_border = "single",
+   },
+   git = {
+      clone_timeout = 600, -- Timeout, in seconds, for git clones
+   },
+   auto_clean = true,
+   compile_on_sync = true,
+   --    auto_reload_compiled = true
 }
 
 return packer
