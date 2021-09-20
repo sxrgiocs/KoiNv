@@ -67,9 +67,10 @@ let.indentLine_fileTypeExclude = "dashboard"
 vim.api.nvim_exec([[
     autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
     ]], false)
+
 -- LaTeX PDF previews
-let.livepreview_engine = "pdflatex"
-let.livepreview_previewer = "zathura"
+let.latex_pdf_viewer = "zathura"
+let.latex_engine = "pdflatex"
 
 -- LaTeX settings (I do not how how to write 'au' in lua bc I'm stupid)
 vim.api.nvim_exec([[
@@ -78,8 +79,7 @@ vim.api.nvim_exec([[
     autocmd BufNewFile,BufRead *.tex set number 
     autocmd BufNewFile,BufRead *.tex let g:loaded_matchparen=1 
     autocmd BufNewFile,BufRead *.tex set noshowmatch 
+    autocmd BufNewFile,BufRead *.tex set conceallevel=0
     ]], false)
 
-set.conceallevel = 1
---let.tex_conceal = "abdmg"
 let.vimtex_view_method = "zathura"

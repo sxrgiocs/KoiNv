@@ -108,13 +108,7 @@ return packer.startup(
 
         -- Completion and snippets
         use {
-            "rafamadriz/friendly-snippets",
-            event = "InsertEnter",
-        }
-
-        use {
             "hrsh7th/nvim-cmp",
-            after = "friendly-snippets",
             config = function()
                 require "plugins.configs.cmp"
             end,
@@ -122,7 +116,6 @@ return packer.startup(
 
         use {
             "L3MON4D3/LuaSnip",
-            wants = "friendly-snippets",
             after = "nvim-cmp",
             config = function()
                 require("plugins.configs.luasnip")
@@ -131,22 +124,18 @@ return packer.startup(
 
         use {
             "saadparwaiz1/cmp_luasnip",
-            after = "LuaSnip",
         }
 
         use {
             "hrsh7th/cmp-nvim-lua",
-            after = "cmp_luasnip",
         }
 
         use {
             "hrsh7th/cmp-nvim-lsp",
-            after = "cmp-nvim-lua",
         }
 
         use {
             "hrsh7th/cmp-buffer",
-            after = "cmp-nvim-lsp",
         }
 
         -- Git plugins
@@ -167,7 +156,7 @@ return packer.startup(
         }
 
         use {
-            "xuhdev/vim-latex-live-preview",
+            "conornewton/vim-latex-preview",
             ft = {"tex"}
         }
 
