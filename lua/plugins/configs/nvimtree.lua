@@ -1,3 +1,5 @@
+require'nvim-tree'.setup()
+
 local present, tree_c = pcall(require, "nvim-tree.config")
 if not present then
     return

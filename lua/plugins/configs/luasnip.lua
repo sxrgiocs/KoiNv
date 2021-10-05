@@ -5,8 +5,9 @@ if not present then
 end
 
 luasnip.config.set_config {
-    history = true,
-    updateevents = "TextChanged,TextChangedI",
+    history = false,
+    --updateevents = "TextChanged,TextChangedI",
+    region_check_events = 'CursorHold'
 }
 
 -- directory for my custom snippets

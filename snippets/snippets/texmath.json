@@ -41,7 +41,7 @@
         "description": "Finite integral"
     },
 
-    "Limmit": {
+    "Limit": {
         "prefix": "limmit",
         "body": ["\\lim_{$1 \\to $2} \\; $3"],
         "description": "Limmit"
@@ -55,5 +55,14 @@
             "\\end{equation}"
         ],
         "description": ""
-    }
+    },
+
+    "Equation without number": {
+        "prefix": "equation*",
+        "body": [
+            "\\begin{equation*}",
+            "\t$1",
+            "\\end{equation*}"],
+        "description": "Equation without number"
+    }   
 }

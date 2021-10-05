@@ -13,21 +13,15 @@
     "Example": {
         "prefix": "example",
         "body": [
-            "\\vspace{0.5cm}",
-            "\\vskip\\medskipamount",
-            "\\leaders\\vrule width \\textwidth\\vskip0.1pt",
-            "",
-            "\\colorbox{yellow!55}{\\textbf{Example}} \\textit{$1}",
-            "",
-            "$0",
-            "",
             "\\vspace{0.2cm}",
-            "\\vskip\\medskipamount ",
+            "\\colorbox{yellow!50!green!40}{\\bf Example} \\myrulefill\\par",
+            "",
+            "$1",
+            "",
+            "\\vspace{0.5cm}",
             "\\leaders\\vrule width \\textwidth\\vskip0.1pt",
-            "\\vskip\\smallskipamount % ditto",
-            "\\leaders\\vrule width \\textwidth\\vskip0.1pt",
-            "\\vskip\\medskipamount",
-            "\\nointerlineskip"
+            "\\vspace{0.1cm}",
+            "\\leaders\\vrule width \\textwidth\\vskip0.1pt"
         ],
         "description": ""
     },
@@ -85,6 +79,24 @@
             "%------------------------------------------------------------------------------",
             "% CUSTOM COMMANDS",
             "\\renewcommand{\\arraystretch}{1.2} % Table vertical spacing",
+
+            "\\newcommand{\\important}[1]{%",
+            "    \\begin{tcolorbox}[colback=white, colframe=yellow!50!orange!50, sharp corners]",
+            "        #1",
+            "    \\end{tcolorbox}",
+            "}%",
+
+            "\\newcommand{\\comp}[1]{%",
+            "    \\begin{tcolorbox}[colback=white, colframe=blue!30, sharp corners]",
+            "        \\itshape",
+            "        #1",
+            "    \\end{tcolorbox}",
+            "}%",
+
+            "\\def\\dotfill#1{\\cleaders\\hbox to #1{.}\\hfill}",
+            "\\makeatletter",
+            "\\def\\myrulefill{\\leavevmode\\leaders\\hrule height .7ex width 1ex depth -0.6ex\\hfill\\kern\\z@}",
+            "\\makeatother",
             "%------------------------------------------------------------------------------",
             "",
             "%------------------------------------------------------------------------------",
