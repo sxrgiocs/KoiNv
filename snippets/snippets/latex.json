@@ -14,7 +14,7 @@
         "prefix": "colbox",
         "body": [
             "\\begin{tcolorbox}[colback=$1, colframe=$1, sharp corners]",
-	        "   $0",
+	        "\t$0",
             "\\end{tcolorbox}"
         ],
         "description": "Borderless colorbox"
@@ -24,7 +24,7 @@
         "prefix": "tcolbox",
         "body": [
             "\\begin{tcolorbox}[title = {$1}, coltitle=$2, colback=$3, colframe=$4, sharp corners]",
-	        "   $0",
+	        "\t$0",
             "\\end{tcolorbox}"
         ],
         "description": "Borderless colorbox"
@@ -39,17 +39,17 @@
     "Wrap Image": {
         "prefix": "wrap",
         "body": [
-            "\\begin{wrapfigure}[${1:Lines}]{r}{${2:Size}\\textwidth}",
-            "   \\begin{center}",
-            "   \\raisebox{0pt}[\\dimexpr\\height-0.5\\baselineskip\\relax]{\\includegraphics[width=${2:Size}\\textwidth]{$3}}",
-            "   \\end{center}",
+            "\\begin{wrapfigure}[$3]{r}{$2\\textwidth}",
+            "\t\\begin{center}",
+            "\t\\raisebox{0pt}[\\dimexpr\\height-0.5\\baselineskip\\relax]{\\includegraphics[width=$2\\textwidth]{$1}}",
+            "\t\\end{center}",
             "\\end{wrapfigure}"
         ]
     },
 
     "Add Image": {
         "prefix": "image",
-        "body": ["\\includegraphics[width=${1:size}\\textwidth]{$2}"],
+        "body": ["\\includegraphics[width=$2\\textwidth]{$1}"],
         "description": "Add a regular image"
     },
 
@@ -161,7 +161,7 @@
         "body": [
             "\\vspace{0.2cm}",
             "\\begin{minipage}{$1\\linewidth}",
-            "    $0",
+            "\t$0",
             "\\end{minipage}"
             ],
         "description": "Insert minipage block"
@@ -171,7 +171,7 @@
         "prefix": "colrow",
         "body": [
             "\\hline\\rowcolor{$1}",
-            "   $0"
+            "\t$0"
             ],
         "description": ""
     },

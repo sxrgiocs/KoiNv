@@ -1,16 +1,4 @@
 {
-    "Implies": {
-        "prefix": "impl",
-        "body": ["\\implies"],
-        "description": ""
-    },
-
-    "Implied by": {
-        "prefix": "implby",
-        "body": ["\\impliedby"],
-        "description": ""
-    },
-
     "Fraction": {
         "prefix": "frac",
         "body": ["\\frac{$1}{$2}"],
@@ -51,7 +39,7 @@
         "prefix": "equation",
         "body": [
             "\\begin{equation}",
-            "   $1",
+            "\t$1",
             "\\end{equation}"
         ],
         "description": ""
