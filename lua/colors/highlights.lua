@@ -155,3 +155,9 @@ hi("DashboardFooter",       colors.black2, colors.background, nil)
 
 -- Indent Blankline Plugin
 hi("IndentBlanklineChar", colors.black, colors.background, nil)
+
+-- Nvim cmp
+hi("CmpItemAbbr",       colors.gray2, nil, nil)
+hi("CmpItemAbbrMatch",  colors.orange, nil, "bold")
+hi("CmpItemKind",       colors.green, nil, nil)
+hi("CmpItemMenu",       colors.blue, nil, nil)
