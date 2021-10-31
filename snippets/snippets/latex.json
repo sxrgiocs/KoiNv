@@ -186,6 +186,25 @@
         "prefix": "ita",
         "body": ["\\textit{$1}"],
         "description": "Create italic font text"
+    },
+
+    "Enumerate": {
+        "prefix": "enumerate",
+        "body": [
+            "\\begin{enumerate}",
+            "\t\\item $0",
+            "\\end{enumerate}"],
+        "description": "Enumerate block"
+    },
+
+    "Tabular": {
+        "prefix": "tabular",
+        "body": [
+            "\\begin{tabular}{$1}",
+            "\t$0",
+            "\\end{tabular}"
+        ],
+        "description": "Tabular block"
     }
 
 }
