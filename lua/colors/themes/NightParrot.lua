@@ -1,7 +1,8 @@
 local colors = {
     white = "#f8f8f2",
-    background = "#0a0a17",
+    --background = "#0a0a17",
     background2 = "#060712",
+    background = "#07071a",
     black = "#22253d",
     black2 = "#353d63",
     black3 = "#14162b",
