@@ -1,11 +1,12 @@
 local global_theme = "colors.themes/" .. require("colors.theme").ui.theme
 local colors = require(global_theme)
 
-local function hi(group, guifg, guibg, gui)
+local function hi(group, guifg, guibg, gui, guisp)
 	local parts = {group}
         if guifg then table.insert(parts, "guifg="..guifg) end
         if guibg then table.insert(parts, "guibg="..guibg) end
         if gui   then table.insert(parts, "gui="..gui)     end
+        if guisp then table.insert(parts, "guisp="..guisp) end
 
 	vim.api.nvim_command('hi '..table.concat(parts, ' '))
 end
@@ -123,19 +124,21 @@ hi("pythonStatement",    colors.blue, nil, nil)
 hi("Conceal", colors.green, colors.background, nil)
 
 -- LSP
-hi("LspDiagnosticsSignError",                   colors.red, nil, nil)
-hi("LspDiagnosticsDefaultError",                colors.red, nil, nil)
---hi("LspDiagnosticsVirtualTextError",          colors.red, nil, nil)
-hi("LspDiagnosticsSignWarning",                 colors.orange, nil, nil)
-hi("LspDiagnosticsDefaultWarning",              colors.orange, nil, nil)
---hi("LspDiagnosticsVirtualTextWarning",        colors.yellow, nil, nil)
-hi("LspDiagnosticsSignInformation",             colors.purple, nil, nil)
-hi("LspDiagnosticsDefaultInformation",          colors.purple, nil, nil)
---hi("LspDiagnosticsVirtualTextInformation",    colors.cyan, nil, nil)
-hi("LspDiagnosticsSignHint",                    colors.blue, nil, nil)
-hi("LspDiagnosticsDefaultHint",                 colors.blue, nil, nil)
---hi("LspDiagnosticsVirtualTextHint",           colors.purple, nil, nil)
+hi("DiagnosticsSignError",                      colors.red, nil, nil)
+hi("DiagnosticError",                           colors.red, nil, nil)
+hi("DiagnosticUnderlineError",                  colors.red, colors.black, nil, colors.red)
+hi("DiagnosticsSignWarn",                       colors.orange, nil, nil)
+hi("DiagnosticWarn",                            colors.orange, nil, nil)
+hi("DiagnosticUnderlineWarn",                   colors.orange.g, colors.black, nil, colors.orange)
+hi("DiagnosticsSignInfo",                       colors.purple, nil, nil)
+hi("DiagnosticInfo",                            colors.purple, nil, nil)
+hi("DiagnosticUnderlineInfo",                   colors.purple, colors.black, nil, colors.purple)
+hi("DiagnosticsSignHint",                       colors.blue, nil, nil)
+hi("DiagnosticHint",                            colors.blue, nil, nil)
+hi("DiagnosticUnderlineHint",                   colors.blue, colors.black, nil, colors.blue)
 hi("NormalFLoat", nil, colors.black, "bold")
+
+-- Diagnostics
 
 -- NvimTree
 hi("NvimTreeVertSplit",         colors.background2, colors.background2, nil)
