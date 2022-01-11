@@ -64,7 +64,7 @@ bufferline.setup {
         },
 
         tab_close = {
-            guifg = colors.red,
+            guifg = colors.black,
             guibg = colors.black
         },
 

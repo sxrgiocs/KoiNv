@@ -147,9 +147,9 @@ gls.right[5] = {
             return " "
         end,
         condition = require("galaxyline.condition").check_git_workspace,
-        highlight = {colors.gray, colors.black},
-        separator = "| ",
-        separator_highlight = {colors.gray2, colors.black, "bold"}
+        highlight = {colors.green2, colors.black},
+        --separator = "| ",
+        --separator_highlight = {colors.gray2, colors.black, "bold"}
     }
 }
 
@@ -158,7 +158,7 @@ gls.right[6] = {
     GitBranch = {
         provider = "GitBranch",
         condition = require("galaxyline.condition").check_git_workspace,
-        highlight = {colors.gray, colors.black, "bold"},
+        highlight = {colors.green2, colors.black, "bold"},
     }
 }
 
