@@ -6,25 +6,42 @@ end
 
 local gls = gl.section
 
+local lspclient = require("galaxyline.providers.lsp")
+
 gl.short_line_list = {" "}
 
 local global_theme = "colors.themes/" .. require("colors.theme").ui.theme
 local colors = require(global_theme)
 
 gls.left[1] = {
-    BlockElement = {
-        provider = function()
-            return "▌"
-        end,
-        highlight = {colors.black, colors.black}
-    }
-}
-
-gls.left[2] = {
     ViMode = {
         provider = function()
+        local alias = {
+				n = "NORMAL",
+				no = "N-OPERATOR",
+				v = "VISUAL",
+				V = "V-LINE",
+				[""] = "V-BLOCK",
+				s = "SELECT",
+				S = "S-LINE",
+				[""] = "S-BLOCK",
+				i = "INSERT",
+				ic = "I-COMPLETION",
+				ix = "I-X-COMP",
+				R = "REPLACE",
+				Rc = "R-COMPLETION",
+				Rv = "R-VIRTUAL",
+				Rx = "R-X-COMP",
+				c = "COMMAND",
+				cv = "EX",
+				r = "PROMPT",
+				rm = "MORE",
+				["r?"] = "CONFIRM",
+				["!"] = "EXT COMMAND",
+				t = "TERMINAL",
+			}
         local mode_color = {
-                            n = colors.blue, i = colors.green2, v=colors.pink,
+                            n = colors.blue, i = colors.green, v=colors.pink,
                             [''] = colors.pink, V=colors.pink,
                             c = colors.black2, no = colors.blue, s = colors.orange,
                             S=colors.orange, [''] = colors.orange,
@@ -35,24 +52,55 @@ gls.left[2] = {
                         }
 
         vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
-            return ' '
+            --return '   ' .. alias[vim.fn.mode()] .. ' '
+            return '  ' .. alias[vim.fn.mode()] .. ' '
     end,
 
-    highlight = {colors.red, colors.black,'bold'},
+    highlight = {colors.black, colors.black, 'bold'},
     },
 }
 
-gls.left[3] = {
-    RoundLeftElement = {
+gls.left[2] = {
+    RoundLeftElement1 = {
         provider = function()
             return ""
         end,
-        highlight = {colors.black2, colors.black}
+        highlight = {colors.gray2, colors.black}
     }
 }
 
 
+
+gls.left[3] = {
+  FileIcon = {
+    provider = require("galaxyline.providers.fileinfo").get_file_icon,
+    highlight = {colors.black, colors.gray2},
+  },
+}
+
+
 gls.left[4] = {
+	LspServer = {
+		provider = function()
+			local curr_client = lspclient.get_lsp_client()
+			if curr_client ~= "No Active Lsp" then
+				return ' ' .. curr_client .. ''
+			end
+		end,
+    highlight = {colors.black, colors.gray2, 'bold'},
+	},
+}
+
+gls.left[5] = {
+    RoundRightElement1 = {
+        provider = function()
+            return " "
+        end,
+        highlight = {colors.gray2, colors.black2}
+    }
+}
+
+gls.left[6] = {
     current_dir = {
         provider = function()
             local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
@@ -62,7 +110,7 @@ gls.left[4] = {
     }
 }
 
-gls.left[5] = {
+gls.left[7] = {
     filename = {
         provider = function()
             local file_name = vim.fn.expand("%:t")
@@ -71,14 +119,6 @@ gls.left[5] = {
         highlight = {colors.white, colors.black2}
     }
 }
---gls.left[5] = {
---    provider = function()
---        local filename = vim.fn.expand "%:t"
---        local extension = vim.fn.expand "%:e"
---        return filename .. "." .. extension
---    end,
---    highlight = {colors.white, colors.black2}
---}
 
 
 local checkwidth = function()
@@ -89,8 +129,23 @@ local checkwidth = function()
     return false
 end
 
-gls.left[6] = {
-    RoundRightElement = {
+gls.left[8] = { -- modified/special icons
+	Modified = {
+		provider = function()
+			if vim.bo.readonly then
+				return '   '
+			end
+			if not vim.bo.modifiable then
+				return '   '
+			end
+		end,
+    highlight = {colors.gray, colors.black2},
+	}
+}
+
+
+gls.left[9] = {
+    RoundRightElement2 = {
         provider = function()
             return " "
         end,
@@ -98,7 +153,7 @@ gls.left[6] = {
     }
 }
 
-gls.left[7] = {
+gls.left[10] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
         icon = "  ",
@@ -106,7 +161,7 @@ gls.left[7] = {
     }
 }
 
-gls.left[8] = {
+gls.left[11] = {
     DiagnosticError = {
         provider = "DiagnosticError",
         icon = "  ",
@@ -115,33 +170,6 @@ gls.left[8] = {
 }
 
 gls.right[1] = {
-    DiffAdd = {
-        provider = "DiffAdd",
-        condition = checkwidth,
-        icon = "  ",
-        highlight = {colors.green, colors.black}
-    }
-}
-
-gls.right[2] = {
-    DiffModified = {
-        provider = "DiffModified",
-        condition = checkwidth,
-        icon = " ",
-        highlight = {colors.blue, colors.black}
-    }
-}
-
-gls.right[3] = {
-    DiffRemove = {
-        provider = "DiffRemove",
-        condition = checkwidth,
-        icon = "  ",
-        highlight = {colors.red, colors.black},
-    }
-}
-
-gls.right[5] = {
     GitIcon = {
         provider = function()
             return " "
@@ -153,8 +181,7 @@ gls.right[5] = {
     }
 }
 
-
-gls.right[6] = {
+gls.right[2] = {
     GitBranch = {
         provider = "GitBranch",
         condition = require("galaxyline.condition").check_git_workspace,
@@ -162,7 +189,7 @@ gls.right[6] = {
     }
 }
 
-gls.right[7] = {
+gls.right[3] = {
     BlockElement = {
         provider = function()
             return "▌"
@@ -171,32 +198,69 @@ gls.right[7] = {
     }
 }
 
-gls.right[11] = {
-    RoundLeftElement = {
+
+gls.right[4] = {
+    DiffAdd = {
+        provider = "DiffAdd",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.green, colors.black}
+    }
+}
+
+gls.right[5] = {
+    DiffModified = {
+        provider = "DiffModified",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.blue, colors.black}
+    }
+}
+
+gls.right[6] = {
+    DiffRemove = {
+        provider = "DiffRemove",
+        condition = checkwidth,
+        icon = "  ",
+        highlight = {colors.red, colors.black},
+    }
+}
+
+gls.right[7] = {
+    RoundLeftElement2 = {
         provider = function()
             return ""
         end,
-        highlight = {colors.black2, colors.black}
+        highlight = {colors.purple, colors.black}
     }
 }
 
-gls.right[12] = {
+gls.right[8] = {
+    LineIcon = {
+        provider = function()
+            return " "
+        end,
+        highlight = {colors.black, colors.purple}
+    },
+}
+
+gls.right[9] = {
   LineInfo = {
     provider = "LineColumn",
-    highlight = {colors.gray2, colors.black2, "bold"},
+    highlight = {colors.black, colors.purple, "bold"},
   },
 }
 
-gls.right[13] = {
-    RoundRightElement = {
+gls.right[10] = {
+    RoundRightElement3 = {
         provider = function()
             return " "
         end,
-        highlight = {colors.black2, colors.black}
+        highlight = {colors.purple, colors.orange}
     }
 }
 
-gls.right[14] = {
+gls.right[11] = {
     line_percentage = {
         provider = function()
             local current_line = vim.fn.line(".")
@@ -210,7 +274,23 @@ gls.right[14] = {
             local result, _ = math.modf((current_line / total_line) * 100)
             return "" .. result .. "% "
         end,
-        highlight = {colors.orange, colors.black, "bold"},
+        highlight = {colors.black, colors.orange, "bold"},
 
     }
 }
+
+--gls.right[10] = {
+--    RoundRightElement4 = {
+--        provider = function()
+--            return " "
+--        end,
+--        highlight = {colors.orange, colors.black}
+--    }
+--}
+
+--gls.right[11] = { -- file size
+--	FileSize = {
+--		provider = require("galaxyline.providers.fileinfo").get_file_size,
+--        highlight = {colors.gray2, colors.black}
+--	},
+--}

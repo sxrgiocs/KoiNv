@@ -70,7 +70,7 @@ vim.api.nvim_exec([[
 
 -- LaTeX PDF previews
 let.latex_pdf_viewer = "zathura"
-let.latex_engine = "pdflatex"
+let.latex_engine = "xelatex"
 
 -- LaTeX settings (I do not how how to write 'au' in lua bc I'm stupid)
 vim.api.nvim_exec([[
